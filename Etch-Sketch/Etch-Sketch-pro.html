@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html>
+    <link rel="stylesheet" type="text/css" href="style.css">
+    <title>Etch-a-sketch</title>
+    <head>
+    <h1>Etch-a-sketch</h1>
+    <h6>@samuthe</h6>
+  </head>
+  <body>
+        <div class="buttonBar">
+        <button id="startDraw">New Drawing</button>
+        <button id="colorButton">Background-Color</button>
+        <button id="clearBtn">Clear grid</button>
+        </div>
+        
+        <div id="container">
+    </div>
+    <footer><em><strong><a href="https://github.com/Samuel199two/javascript-exercises">Complete guide</a></footer>
+        </div>
+  </body>
+</html>
+
+<style>
+    :root {
+  --columns-row: 2;
+  text-align: center;
+}
+
+ #container {
+      display: grid;
+      grid-template-columns: repeat(var(--columns-row), 1fr);
+      grid-template-rows: repeat(var(--columns-row), 1fr);
+      width: 600px;
+      height: 500px;
+      margin: auto;
+      border: 5px solid green;
+  }
+
+  
+  div {
+     border: 1px solid blueviolet;
+  }
+
+  .buttonBar {
+    grid-row: 2 / 3;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    align-items: center;
+    justify-items: center;
+    padding-top: 0px;
+    padding-right: -20px;
+    display: inline-block;
+    padding-bottom: -10px;
+    background-color: cadetblue;
+}
+
+  button {
+    border: solid;
+    border-color: purple;
+    border-radius: 15px;
+    font-family: 'Lato', sans-serif;
+    color: black;
+    font-size: 1rem;
+    height: 8vh;
+    width: 15vw;
+    padding-right: -5px;
+    padding-bottom: 2px;
+    justify-items: center;
+    grid-row: 3 / 5;
+}
+
+header {
+    background-color: #610F7F;
+    grid-row: 1 / 2;
+    grid-column: 1 / 4;
+    display: grid;
+    grid-template: 4fr 1fr;
+    align-items: center;
+    justify-items: center;
+}
+
+ h6 {
+    grid-row: 2 / 3;
+    padding-bottom: 10px;
+    display: grid;
+    font-family: 'Lato', sans-serif;
+    color: yellowgreen;
+    font-size: 1em;
+    padding-bottom: -30px;
+}
+
+ h1 {
+    font-family: 'Press Start 2P', cursive;
+    font-weight: 900;
+    font-size: 3em;
+    color: black;
+    grid-row: 1 / 2;
+    padding-top: -35px;
+}
+
+#startDraw:hover{
+    color: chartreuse;
+}
+
+#colorButton:hover{
+    color:darkgoldenrod;
+}
+
+#clearBtn:hover{
+    color:crimson;
+}
+
+footer {
+    grid-row: 4 / 5;
+    font-family: 'Lato', sans-serif;
+    color: white;
+    display: grid;
+    align-items: center;
+    justify-items: center;
+    padding-bottom: 10px;
+}
+
+footer a {
+    font-family:Arial, Helvetica, sans-serif;
+    color: #610F7F;
+    padding-top: 30px;
+}
+
+footer a:hover {
+    color: #FF8360;
+}
+    </style>
+
+    <script>
+        //Addition of event listener buttons to the functions
+        function eventbuttons(){
+            let gridBtn = document.getElementById("startDraw");
+            gridBtn.addEventListener("click", createGrid);
+
+            let colorBtn = document.getElementById("colorButton");
+            colorBtn.addEventListener("click", createColor);
+
+            let clearBtn = document.getElementById("clearBtn");
+            clearBtn.addEventListener("click", clearGrid);
+        }
+
+        //creating grids in the container
+        function createGrid(){
+            let i = 0;
+            var Container = document.getElementById("container");
+            Container.innerHTML = '';
+            let numberOfRows = prompt("How many rows do you want\n[16 - 100]?");
+            if(numberOfRows.length <= 0 || isNaN(numberOfRows)) {
+                alert("Invalid input\n Enter in range[16 - 100]");
+            }
+
+            else if (parseInt(numberOfRows) >= 16 && parseInt(numberOfRows) <= 100) {
+                let x = numberOfRows * numberOfRows;
+                document.documentElement.style.setProperty("--columns-row", numberOfRows);
+                for (i =  0; i < x ; i++) {
+                    var div = document.createElement("div");
+                    document.getElementById("container").appendChild(div);
+                    div.addEventListener("mouseenter", function () {
+                        this.style.backgroundColor = "purple";
+                })
+                }
+                }
+        }
+
+        //Color addition to the background           
+        function createColor(){
+            let color = prompt("Enter any of this colors:\n[white,grey,blue,black,yellow,orange,pink]")
+            var div = document.createElement("div");
+            if (color == "orange"){
+                document.getElementById("container").appendChild(div);
+                div.style.backgroundColor = "orange";
+                    console.log(document.body.style.backgroundColor = "orange");
+                    }
+
+            else if(color == "black"){
+                document.body.style.backgroundColor = "black";
+                console.log(document.body.style.backgroundColor);
+                    }
+
+            else if(color == "grey"){
+                document.body.style.backgroundColor = "hsl(50, 33%, 25%)";
+                console.log(document.body.style.backgroundColor);
+                }
+
+            else if(color == "blue"){
+                document.body.style.backgroundColor = "blue";
+                console.log(Container.body.style.backgroundColor);
+                }
+
+            else if(color == "yellow"){
+                document.body.style.backgroundColor = "yellow";
+                console.log(document.body.style.backgroundColor);
+                }
+
+            else if(color == "pink"){
+                document.body.style.backgroundColor = "pink";
+                console.log(document.body.style.backgroundColor);
+                }
+
+            else if(color == "white"){
+                document.body.style.backgroundColor = "white";
+                console.log(document.body.style.backgroundColor);
+                }
+
+            else{
+                alert("Unrecognised input. Please try again.");
+                }
+            }
+
+        //Clear grid templates
+        function clearGrid(){
+            let Container = document.getElementById("container");
+            while(Container.firstChild){
+                Container.removeChild(Container.firstChild);
+            }
+            }
+
+        //function call
+        function call(){
+            eventbuttons();
+        }
+        call();
+
+    </script>
